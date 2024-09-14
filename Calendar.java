@@ -43,15 +43,13 @@ class Date {
         return this.dayOfWeek;
     }
     public  int  getCenturyCode(int year){
-     int century = year/100;
-     int centuryCode = (6-(century%4)*2);
-     return centuryCode<0 ? centuryCode+7 :centuryCode;
+     return (6-((year/100)%4)*2)%7;
     }
     public  int getLeapYearCount(int year){
         return (year%100)/4;
     }
     public boolean isLeapYear(int year){
-        return (year%4==0);
+        return (year % 400 == 0) || (year % 4 == 0 && year % 100 != 0);
     }
     public int getMonthCode(String month) {
         switch (month) {
