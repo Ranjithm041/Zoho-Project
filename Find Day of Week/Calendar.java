@@ -7,9 +7,13 @@ class Date {
     private int year;
     private String dayOfWeek;
     public Date(int date,String month,int year){
+        
         this.date=date;
         this.month=month;
         this.year=year;
+        if (!isValidMonth(date, month, year)) {
+            throw new IllegalArgumentException("Invalid date for the given month and year!");
+        }
         this.dayOfWeek=getDayOfWeek();
     }
     public void setDate(int date){
@@ -31,6 +35,7 @@ class Date {
         return month;
     }
     public  String getDayOfWeek(){
+        
         int yearCode = year%100;
         int leapYearCount = getLeapYearCount(year);
         int monthCode = getMonthCode(month);
@@ -41,6 +46,10 @@ class Date {
     }
     public String getDay(){
         return this.dayOfWeek;
+    }
+    public boolean isValidMonth(int date, String month, int year) {
+        int maxDaysInMonth = getMonthDuration(month);
+        return date > 0 && date <= maxDaysInMonth;
     }
     public  int  getCenturyCode(int year){
      return (6-((year/100)%4)*2)%7;
