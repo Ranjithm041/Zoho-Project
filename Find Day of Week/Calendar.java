@@ -11,9 +11,6 @@ class Date {
         this.date=date;
         this.month=month;
         this.year=year;
-        if (!isValidMonth(date, month, year)) {
-            throw new IllegalArgumentException("Invalid date for the given month and year!");
-        }
         this.dayOfWeek=getDayOfWeek();
     }
     public void setDate(int date){
@@ -74,8 +71,9 @@ class Date {
             case "oct": return 0;
             case "nov": return 3;
             case "dec": return 5;
-            default: throw new IllegalArgumentException("Invalid month: " + month);
+            default: System.out.println("Invalid month: " + month); break;
         }
+        return -1;
     }
     public int getMonthDuration(String month){
         switch(month){
@@ -91,8 +89,9 @@ class Date {
             case "oct": return 31;
             case "nov": return 30;
             case "dec": return 31;
-            default: throw new IllegalArgumentException("Invalid month: " + month);
+            default: System.out.println("Invalid month: " + month); break;
         }
+        return -1;
     }
     public void printMonth(String month,int year){
         setDate(1);
@@ -150,11 +149,17 @@ public class Calendar{
             input.close();
 
             Date d = new Date(date, month, year);
+            if (! d.isValidMonth(date, month, year)) {
+                System.out.println("Invalid date, month and year....");
+                return;
+            }
             String day = d.getDay(); 
             System.out.printf(" %d  %s  %d  is : %s \n\n",date ,month , year , day);
             d.printMonth(month, year);
         }catch (InputMismatchException e) {
             System.out.println("Invalid input! Please enter a valid data " + e);
+        }finally{
+            input.close();
         }
        
     }
